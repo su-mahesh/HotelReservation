@@ -108,7 +108,7 @@ public class HotelReservationTest {
     }
 
     @Test
-    public void givenDayRatesAndRating_WhenSearchedForCheapestHotel_ShouldReturnCheapestHotel() {
+    public void givenDayRatesAndRating_WhenSearchedForCheapestBestHotel_ShouldReturnCheapestHotel() {
 
         HotelReservationSystem hotelReservation = new HotelReservationSystem();
         Hotel lakewood = new Hotel("Lakewood");
@@ -132,7 +132,7 @@ public class HotelReservationTest {
         LocalDate fromDate = LocalDate.of(2020, 9, 11);
         LocalDate toDate = LocalDate.of(2020, 9, 12);
 
-        Hotel cheapestHotel = hotelReservation.getCheapestHotelHavingDifferentRate(fromDate, toDate);
+        Hotel cheapestHotel = hotelReservation.getCheapestBestHotel(fromDate, toDate);
         Assert.assertSame(bridgewood, cheapestHotel);
 
     }
@@ -188,6 +188,35 @@ public class HotelReservationTest {
 
         Assert.assertEquals(100, ridgewood.getWeekdayRateForRewardCustomer(), 0);
         Assert.assertEquals(40, ridgewood.getWeekendRateForRewardCustomer(), 0);
+    }
+
+    @Test
+    public void givenRewardCustomer_WhenSearchedForCheapestBestHotel_ShouldReturnBestCheapestHotel() {
+
+        HotelReservationSystem hotelReservation = new HotelReservationSystem();
+
+
+        Hotel lakewood = new Hotel("Lakewood");
+        lakewood.setWeekdayRateForRewardCustomer(80);
+        lakewood.setWeekendRateForRewardCustomer(80);
+        lakewood.rateHotel(3);
+        hotelReservation.addHotel(lakewood);
+
+        Hotel bridgewood = new Hotel("Bridgewood");
+        bridgewood.setWeekdayRateForRewardCustomer(110);
+        bridgewood.setWeekendRateForRewardCustomer(50);
+        bridgewood.rateHotel(4);
+
+        hotelReservation.addHotel(bridgewood);
+
+        Hotel ridgewood = new Hotel("Ridgewood");
+        ridgewood.setWeekdayRateForRewardCustomer(100);
+        ridgewood.setWeekendRateForRewardCustomer(40);
+        ridgewood.rateHotel(5);
+        hotelReservation.addHotel(ridgewood);
+
+        Hotel cheapestHotel = hotelReservation.getCheapestBestHotel();
+        Assert.assertEquals(ridgewood, cheapestHotel);
     }
 }
     
