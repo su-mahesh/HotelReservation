@@ -91,9 +91,22 @@ public class HotelReservationTest {
         Assert.assertSame(lakewood, cheapestHotel);
     }
 
+    @Test
+    public void givenHotels_WhenGivenRatings_ShouldReturnSameRatings() {
 
+        Hotel lakewood = new Hotel("Lakewood");
+        Hotel bridgewood = new Hotel("Bridgewood");
+        Hotel ridgewood = new Hotel("Ridgewood");
 
+        lakewood.rateHotel(3);
+        bridgewood.rateHotel(4);
+        ridgewood.rateHotel(5);
 
+        Assert.assertEquals(3,lakewood.getRating());
+        Assert.assertEquals(4, bridgewood.getRating());
+        Assert.assertEquals(5,ridgewood.getRating());
+
+    }
 }
     
 

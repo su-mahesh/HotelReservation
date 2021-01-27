@@ -5,6 +5,7 @@ public class Hotel {
     private float regularRate;
     private float weekdayRate;
     private float weekendRate;
+    private int rating;
 
     public Hotel(String hotelName) {
         this.hotelName = hotelName.substring(0, 1).toUpperCase() + hotelName.substring(1).toLowerCase();
@@ -37,5 +38,16 @@ public class Hotel {
 
     public float getWeekendRate() {
         return weekendRate;
+    }
+
+    public void rateHotel(int rating) {
+        if (rating < 6 && rating > 0)
+            this.rating = rating;
+        else
+            System.out.println("wrong input, rating(1 - 5)");
+    }
+
+    public int getRating() {
+        return rating;
     }
 }
