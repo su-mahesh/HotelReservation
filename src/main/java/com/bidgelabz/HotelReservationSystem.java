@@ -25,8 +25,8 @@ public class HotelReservationSystem {
     }
 
 
-    public Hotel findCheapestHotel(LocalDate fromDate, LocalDate toDate) {
-        int duration = (int) ChronoUnit.DAYS.between( fromDate, toDate);
+    public Hotel getCheapestHotel(LocalDate fromDate, LocalDate toDate) {
+        int duration = (int) ChronoUnit.DAYS.between( fromDate, toDate)+1;
 
         Hotel cheapestHotel = null;
         float cheapestRate = 0;
@@ -42,5 +42,32 @@ public class HotelReservationSystem {
             }
         }
         return cheapestHotel;
+    }
+
+    public Hotel getCheapestHotelWithDifferentRate(LocalDate fromDate, LocalDate toDate) {
+
+        Hotel cheapestHotel = null;
+        float cheapestRate = 0;
+        float currentRate = 0;
+
+        for (Hotel hotel: hotels.values()){
+
+            for (LocalDate date = fromDate; date.isBefore(toDate) || date.equals(toDate); date = date.plusDays(1)) {
+                currentRate += (date.getDayOfWeek().getValue() != 6 && date.getDayOfWeek().getValue() != 7 ) ?
+                                hotel.getWeekdayRate() : hotel.getWeekendRate();
+            }
+            if (cheapestRate == 0) {
+                cheapestRate = currentRate;
+                cheapestHotel = hotel;
+            }
+            if (cheapestRate > currentRate) {
+                cheapestRate = currentRate;
+                cheapestHotel = hotel;
+            }
+            currentRate = 0;
+        }
+        System.out.println("cheapest hotel: " +cheapestHotel.getHotelName()+ " total price: "+ cheapestRate);
+        return cheapestHotel;
+
     }
 }

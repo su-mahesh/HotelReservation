@@ -7,7 +7,7 @@ public class Hotel {
     private float weekendRate;
 
     public Hotel(String hotelName) {
-        this.hotelName = hotelName.substring(0, 1).toUpperCase() + hotelName.substring(1).toUpperCase();
+        this.hotelName = hotelName.substring(0, 1).toUpperCase() + hotelName.substring(1).toLowerCase();
     }
 
     public String getHotelName() {
