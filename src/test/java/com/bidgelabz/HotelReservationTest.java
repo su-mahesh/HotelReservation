@@ -164,7 +164,30 @@ public class HotelReservationTest {
 
         Hotel cheapestHotel = hotelReservation.getBestRatedHotel(fromDate, toDate);
         Assert.assertSame(ridgewood, cheapestHotel);
+    }
 
+    @Test
+    public void givenSpecialRate_WhenAddedToHotel_ShouldReturnSame() {
+        Hotel lakewood = new Hotel("Lakewood");
+        lakewood.setWeekdayRateForRewardCustomer(80);
+        lakewood.setWeekendRateForRewardCustomer(80);
+
+        Hotel bridgewood = new Hotel("Bridgewood");
+        bridgewood.setWeekdayRateForRewardCustomer(110);
+        bridgewood.setWeekendRateForRewardCustomer(50);
+
+        Hotel ridgewood = new Hotel("Ridgewood");
+        ridgewood.setWeekdayRateForRewardCustomer(100);
+        ridgewood.setWeekendRateForRewardCustomer(40);
+
+        Assert.assertEquals(80, lakewood.getWeekdayRateForRewardCustomer(), 0);
+        Assert.assertEquals(80, lakewood.getWeekendRateForRewardCustomer(), 0);
+
+        Assert.assertEquals(110, bridgewood.getWeekdayRateForRewardCustomer(), 0);
+        Assert.assertEquals(50, bridgewood.getWeekendRateForRewardCustomer(), 0);
+
+        Assert.assertEquals(100, ridgewood.getWeekdayRateForRewardCustomer(), 0);
+        Assert.assertEquals(40, ridgewood.getWeekendRateForRewardCustomer(), 0);
     }
 }
     

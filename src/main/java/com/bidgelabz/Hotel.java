@@ -6,6 +6,8 @@ public class Hotel {
     private float weekdayRate;
     private float weekendRate;
     private int rating;
+    private float weekdayRateRewardCustomer;
+    private float weekendRateRewardCustomer;
 
     public Hotel(String hotelName) {
         this.hotelName = hotelName.substring(0, 1).toUpperCase() + hotelName.substring(1).toLowerCase();
@@ -49,5 +51,22 @@ public class Hotel {
 
     public int getRating() {
         return rating;
+    }
+
+    public void setWeekdayRateForRewardCustomer(float weekdayRateRewardCustomer) {
+        
+        this.weekdayRateRewardCustomer = weekdayRateRewardCustomer;
+    }
+
+    public void setWeekendRateForRewardCustomer(float weekendRateRewardCustomer) {
+        this.weekendRateRewardCustomer = weekendRateRewardCustomer;
+    }
+
+    public float getWeekdayRateForRewardCustomer() {
+        return weekdayRateRewardCustomer;
+    }
+
+    public float getWeekendRateForRewardCustomer() {
+        return weekendRateRewardCustomer;
     }
 }
