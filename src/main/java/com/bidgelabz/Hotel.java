@@ -16,4 +16,8 @@ public class Hotel {
 
         this.regularRate = regularRate;
     }
+
+    public float getRegularRate() {
+        return regularRate;
+    }
 }
