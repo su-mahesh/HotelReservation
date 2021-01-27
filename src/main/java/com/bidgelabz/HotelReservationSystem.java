@@ -7,6 +7,8 @@ import java.util.HashMap;
 public class HotelReservationSystem {
 
     private HashMap<String, Hotel> hotels = new HashMap<>();
+    private float minRateDifference = 10;
+    private int minRatingDifference = 1;
 
     public void addHotel(Hotel lakewood) {
         String hotelName = lakewood.getHotelName().toLowerCase();
@@ -44,11 +46,13 @@ public class HotelReservationSystem {
         return cheapestHotel;
     }
 
-    public Hotel getCheapestHotelWithDifferentRate(LocalDate fromDate, LocalDate toDate) {
+    public Hotel getCheapestHotelHavingDifferentRate(LocalDate fromDate, LocalDate toDate) {
 
         Hotel cheapestHotel = null;
         float cheapestRate = 0;
         float currentRate = 0;
+        int bestRating = 0;
+        int currentRating = 0;
 
         for (Hotel hotel: hotels.values()){
 
@@ -57,16 +61,25 @@ public class HotelReservationSystem {
                                 hotel.getWeekdayRate() : hotel.getWeekendRate();
             }
             if (cheapestRate == 0) {
+                bestRating = hotel.getRating();
                 cheapestRate = currentRate;
                 cheapestHotel = hotel;
             }
-            if (cheapestRate > currentRate) {
+            if (cheapestRate - currentRate <= minRateDifference && Math.abs(bestRating - hotel.getRating()) == minRatingDifference) {
+                cheapestHotel = hotel;
+                cheapestRate = currentRate;
+
+            }
+            else if(cheapestRate > currentRate ) {
+                bestRating = hotel.getRating();
                 cheapestRate = currentRate;
                 cheapestHotel = hotel;
             }
+
+
             currentRate = 0;
         }
-        System.out.println("cheapest hotel: " +cheapestHotel.getHotelName()+ " total price: "+ cheapestRate);
+        System.out.println("cheapest hotel: " +cheapestHotel.getHotelName()+ " rating: " +bestRating+ " total price: "+ cheapestRate);
         return cheapestHotel;
 
     }

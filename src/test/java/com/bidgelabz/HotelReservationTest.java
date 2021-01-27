@@ -87,7 +87,7 @@ public class HotelReservationTest {
         LocalDate fromDate = LocalDate.of(2020, 9, 11);
         LocalDate toDate = LocalDate.of(2020, 9, 12);
 
-        Hotel cheapestHotel = hotelReservation.getCheapestHotelWithDifferentRate(fromDate, toDate);
+        Hotel cheapestHotel = hotelReservation.getCheapestHotelHavingDifferentRate(fromDate, toDate);
         Assert.assertSame(lakewood, cheapestHotel);
     }
 
@@ -105,6 +105,35 @@ public class HotelReservationTest {
         Assert.assertEquals(3,lakewood.getRating());
         Assert.assertEquals(4, bridgewood.getRating());
         Assert.assertEquals(5,ridgewood.getRating());
+    }
+
+    @Test
+    public void givenDayRatesAndRating_WhenSearchedForCheapestHotel_ShouldReturnCheapestHotel() {
+
+        HotelReservationSystem hotelReservation = new HotelReservationSystem();
+        Hotel lakewood = new Hotel("Lakewood");
+        lakewood.setWeekdayRate(100);
+        lakewood.setWeekendRate(90);
+        lakewood.rateHotel(3);
+        hotelReservation.addHotel(lakewood);
+
+        Hotel bridgewood = new Hotel("Bridgewood");
+        bridgewood.setWeekdayRate(150);
+        bridgewood.setWeekendRate(50);
+        bridgewood.rateHotel(4);
+        hotelReservation.addHotel(bridgewood);
+
+        Hotel ridgewood = new Hotel("Ridgewood");
+        ridgewood.setWeekdayRate(220);
+        ridgewood.setWeekendRate(150);
+        ridgewood.rateHotel(5);
+        hotelReservation.addHotel(ridgewood);
+
+        LocalDate fromDate = LocalDate.of(2020, 9, 11);
+        LocalDate toDate = LocalDate.of(2020, 9, 12);
+
+        Hotel cheapestHotel = hotelReservation.getCheapestHotelHavingDifferentRate(fromDate, toDate);
+        Assert.assertSame(bridgewood, cheapestHotel);
 
     }
 }
