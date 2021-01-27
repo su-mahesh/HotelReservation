@@ -79,8 +79,38 @@ public class HotelReservationSystem {
 
             currentRate = 0;
         }
+        if(cheapestHotel != null)
         System.out.println("cheapest hotel: " +cheapestHotel.getHotelName()+ " rating: " +bestRating+ " total price: "+ cheapestRate);
         return cheapestHotel;
+
+    }
+
+    public Hotel getBestRatedHotel(LocalDate fromDate, LocalDate toDate) {
+
+        Hotel bestRatedHotel = null;
+        float hotelRate = 0;
+        float currentRate = 0;
+        int bestRating = 0;
+
+        for (Hotel hotel: hotels.values()){
+
+            for (LocalDate date = fromDate; date.isBefore(toDate) || date.equals(toDate); date = date.plusDays(1)) {
+                currentRate += (date.getDayOfWeek().getValue() != 6 && date.getDayOfWeek().getValue() != 7 ) ?
+                        hotel.getWeekdayRate() : hotel.getWeekendRate();
+            }
+
+            if(bestRating < hotel.getRating()){
+                hotelRate = currentRate;
+                bestRatedHotel = hotel;
+                bestRating = hotel.getRating();
+            }
+
+
+            currentRate = 0;
+        }
+        if(bestRatedHotel != null)
+        System.out.println("cheapest hotel: " +bestRatedHotel.getHotelName()+ " rating: " +bestRating+ " total price: "+ hotelRate);
+        return bestRatedHotel;
 
     }
 }

@@ -136,6 +136,36 @@ public class HotelReservationTest {
         Assert.assertSame(bridgewood, cheapestHotel);
 
     }
+
+    @Test
+    public void givenRatingAndDates_WhenSearchedForBestRatedHotel_ShouldReturnBestRatedHotel() {
+
+        HotelReservationSystem hotelReservation = new HotelReservationSystem();
+        Hotel lakewood = new Hotel("Lakewood");
+        lakewood.setWeekdayRate(100);
+        lakewood.setWeekendRate(90);
+        lakewood.rateHotel(3);
+        hotelReservation.addHotel(lakewood);
+
+        Hotel bridgewood = new Hotel("Bridgewood");
+        bridgewood.setWeekdayRate(150);
+        bridgewood.setWeekendRate(50);
+        bridgewood.rateHotel(4);
+        hotelReservation.addHotel(bridgewood);
+
+        Hotel ridgewood = new Hotel("Ridgewood");
+        ridgewood.setWeekdayRate(220);
+        ridgewood.setWeekendRate(150);
+        ridgewood.rateHotel(5);
+        hotelReservation.addHotel(ridgewood);
+
+        LocalDate fromDate = LocalDate.of(2020, 9, 11);
+        LocalDate toDate = LocalDate.of(2020, 9, 12);
+
+        Hotel cheapestHotel = hotelReservation.getBestRatedHotel(fromDate, toDate);
+        Assert.assertSame(ridgewood, cheapestHotel);
+
+    }
 }
     
 
