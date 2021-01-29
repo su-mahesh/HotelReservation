@@ -216,8 +216,6 @@ public class HotelReservationSystem {
         return cheapestHotel;
     }
 
-
-
     public Hotel getCheapestBestHotel() {
         boolean flag = true;
         String fromDateString;
@@ -260,8 +258,7 @@ public class HotelReservationSystem {
                 customerType = sc.nextInt();
                 switch (customerType){
                     case 1:
-                        getCheapestBestHotel(fromDate, toDate);
-                        break;
+                        return getCheapestBestHotelForRewardCustomer(fromDate, toDate, Customer_Type.NORMAL_CUSTOMER);
                     case 2:
                         return getCheapestBestHotelForRewardCustomer(fromDate, toDate, Customer_Type.REWARD_CUSTOMER);
                         default:
