@@ -195,7 +195,6 @@ public class HotelReservationTest {
 
         HotelReservationSystem hotelReservation = new HotelReservationSystem();
 
-
         Hotel lakewood = new Hotel("Lakewood");
         lakewood.setWeekdayRateForRewardCustomer(80);
         lakewood.setWeekendRateForRewardCustomer(80);
@@ -214,6 +213,9 @@ public class HotelReservationTest {
         ridgewood.setWeekendRateForRewardCustomer(40);
         ridgewood.rateHotel(5);
         hotelReservation.addHotel(ridgewood);
+
+        LocalDate fromDate = LocalDate.of(2020, 9, 11);
+        LocalDate toDate = LocalDate.of(2020, 9, 12);
 
         Hotel cheapestHotel = hotelReservation.getCheapestBestHotel();
         Assert.assertEquals(ridgewood, cheapestHotel);
